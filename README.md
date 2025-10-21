@@ -67,7 +67,7 @@ python main.py --pdf data/ncert-geography-class-IX/iess104.pdf --ask "What is th
 Point the CLI at a blank-line-separated text file (see `examples/corpus/product-brief.txt`).
 
 ```bash
-python main.py --corpus examples/corpus/product-brief.txt --ask "Who benefits from this tool?"
+python main.py --corpus data/candy-tree-story.txt --ask "How did Mira decide to keep the secret safe?"
 ```
 
 ![Text corpus demo](docs/screenshots/text-corpus.svg)
@@ -76,7 +76,7 @@ python main.py --corpus examples/corpus/product-brief.txt --ask "Who benefits fr
 Batch-load multiple PDFs and search across the whole stack.
 
 ```bash
-python main.py --group data/ncert-geography-class-IX --ask "What are the major physiographic divisions in India?"
+python main.py --group data/ncert-geography-class-IX --ask "What are the major physiographic divisions in India? --k 2"
 ```
 
 ![PDF group demo](docs/screenshots/pdf-group.svg)

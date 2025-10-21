@@ -4,3 +4,4 @@ data/*
 !data/project-brief.txt
 !data/candy-tree-story.txt
 !data/dell-P2018H-user-guide.pdf
+__pycache__

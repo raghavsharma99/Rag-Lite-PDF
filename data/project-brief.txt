@@ -1,0 +1,5 @@
+Rag-Lite PDF stitches together a rapid retrieval layer for your static PDFs. It relies on BM25 to find the most relevant paragraphs before letting an LLM craft a grounded answer. The tool is ideal when you need chart-free, text-dense references to stay searchable.
+
+Deployment is intentionally light-weight. A single Python file loads any short PDF collection, extracts paragraphs, performs retrieval and streams a cited response from OpenAI's GPT-4o Mini model. You can run it on a laptop as long as you provide an API key and a modest connection.
+
+Typical users are curriculum designers, customer-facing analysts, or research assistants who must answer niche questions across multiple PDF manuals without losing track of citations.

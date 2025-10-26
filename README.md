@@ -10,6 +10,7 @@
 - [🖼️ Use Case Walkthroughs](#-use-case-walkthroughs)
 - [🧠 How It Works](#-how-it-works)
 - [⚙️ CLI Options](#-cli-options)
+- [🧪 Evaluation Workflow](#-evaluation-workflow)
 - [🧪 Validation Tips](#-validation-tips)
 - [🛣️ Roadmap Ideas](#-roadmap-ideas)
 - [🙌 Acknowledgements](#-acknowledgements)
@@ -23,11 +24,14 @@
 
 ## 🗂️ Project Layout
 - `main.py` — complete CLI workflow (loading, retrieval, LLM answer).
+- `eval.py` — evaluation system for measuring RAG performance across multiple questions.
 - `requirements.txt` — minimal dependencies.
 - `data/` — sample PDF manuals and reports you can query immediately.
 - `data/ncert-geography-class-IX/` — NCERT Class IX Geography chapters sourced from the [official textbook page](https://ncert.nic.in/textbook.php?iess1=2-6).
 - `data/project-brief.txt` — tiny plain-text corpus for demo questions.
 - `data/candy-tree-story.txt` - tiny plain-text corpus for demo questions.
+- `eval/questions.jsonl` — sample evaluation questions for testing.
+- `results/` — evaluation outputs (CSV metrics and JSONL answers).
 
 ## 🚀 Quickstart
 
@@ -100,11 +104,71 @@ python main.py --group data/ncert-geography-class-IX --ask "What are the major p
 
 > Exactly one of `--pdf`, `--corpus`, or `--group` must be supplied.
 
+## 🧪 Evaluation Workflow
+
+The project includes a comprehensive evaluation system to measure RAG performance across multiple questions and documents.
+
+### Running Evaluations
+
+```bash
+# Evaluate on a PDF group with default questions
+python eval.py --group data/ncert-geography-class-IX --k 3
+
+# Use custom questions file
+python eval.py --group data/ncert-geography-class-IX --qfile eval/custom_questions.jsonl
+
+# Enable LLM judge for grounding assessment
+python eval.py --group data/ncert-geography-class-IX --judge --k 5
+```
+
+### Evaluation Metrics
+
+The system tracks several key metrics:
+
+- **Citation Rate**: Percentage of answers that include proper citations `[1]`, `[1 p.5]`
+- **Keyword Coverage**: How many expected keywords appear in the generated answers
+- **Source Accuracy**: Whether answers reference the correct source documents
+- **LLM Judge Score**: Optional 1-5 rating of answer grounding (when `--judge` flag is used)
+
+### Output Files
+
+Evaluations generate two output files:
+
+1. **`results/summary.csv`** - Metrics and analysis data
+2. **`results/summary_answers.jsonl`** - Raw Q&A pairs for manual review
+
+#### Sample Output Files
+
+**`summary.csv`** - Evaluation metrics:
+```csv
+qid,source,has_citation,keyword_hits,keyword_coverage,has_correct_source,judge_grounding_1to5
+q1,data/ncert-geography-class-IX/iess101.pdf,1,1,1.0,0,5
+q2,data/ncert-geography-class-IX/iess105.pdf,1,5,1.0,1,5
+q3,data/ncert-geography-class-IX/iess103.pdf,1,0,0.0,1,1
+q4,data/ncert-geography-class-IX/iess102.pdf,1,2,0.667,1,5
+```
+
+**`summary_answers.jsonl`** - Raw Q&A pairs:
+```json
+{"qid": "q1", "question": "What is the area of India?. Cite.", "answer": "The area of India is approximately 3.28 million square kilometers, which accounts for 2.4 percent of the world's area [1 p.1].\n\nSources:\n[1 p.1 data/ncert-geography-class-IX/iess106.pdf]\n[2 p.1 data/ncert-geography-class-IX/iess104.pdf]\n[3 p.5 data/ncert-geography-class-IX/iess105.pdf]\n[4 p.10 data/ncert-geography-class-IX/iess104.pdf]\n[5 p.1 data/ncert-geography-class-IX/iess102.pdf]"}
+{"qid": "q2", "question": "Waht are the types of veegation in India?", "answer": "India has several major types of natural vegetation, which are identified as follows:\n\n1. Tropical Evergreen Forests\n2. Tropical Deciduous Forests\n3. Tropical Thorn Forests and Scrubs\n4. Montane Forests\n5. Mangrove Forests [1 p.5].\n\nSources:\n[1 p.1 data/ncert-geography-class-IX/iess105.pdf]\n[2 p.9 data/ncert-geography-class-IX/iess105.pdf]\n[3 p.10 data/ncert-geography-class-IX/iess104.pdf]\n[4 p.8 data/ncert-geography-class-IX/iess103.pdf]\n[5 p.1 data/ncert-geography-class-IX/iess106.pdf]"}
+```
+
+### Question Format
+
+Create evaluation questions in JSONL format:
+
+```json
+{"id": "q1", "question": "What shapes India's climate?", "expected_keywords": ["monsoon", "latitude", "altitude"], "document": "iess104.pdf"}
+{"id": "q2", "question": "Name the major physiographic divisions", "expected_keywords": ["Himalayas", "Indo-Gangetic", "Peninsular"], "document": "iess106.pdf"}
+```
+
 ## 🧪 Validation Tips
 - Run a quick smoke test: `python main.py --pdf data/dell-P2018H-user-guide.pdf --ask "How do I access the OSD?"`.
 - Inspect the cited paragraphs to confirm they're relevant before trusting the answer.
 - Tune `--k` upwards for broader context, or down for faster responses.
 - Add your own PDFs into `data/` (or point to another directory) to expand coverage.
+- Use the evaluation workflow to systematically test performance across your document collection.
 
 ## 🛣️ Roadmap Ideas
 - Swap BM25 with a hybrid embedding retriever for semantic matching.

@@ -86,8 +86,7 @@ Answer with citations:
 
 # ---------------------- ANSWER ---------------------- 
 
-def answer(query: str, records: List[Dict], bm25: BM25Okapi,
-tokenized_corpus: List[List[str]], k: int = 6) -> str:
+def answer(query: str, records: List[Dict], bm25: BM25Okapi, k: int = 6) -> str:
     hits = retrieve(bm25, records, query, k=k)
     ctx = format_context(hits)
     llm = ChatOpenAI(model = "gpt-4o-mini")
@@ -119,10 +118,13 @@ def cli():
         records = load_pdf_group(args.group)
 
     if not records:
-        raise SystemExit("No extractable text found.")
+        raise SystemExit("No extractables text found.")
     
     bm25, tok = build_bm25(records)
-    print(answer(args.ask, records, bm25, tok, k=args.k))
+    result = answer(args.ask, records, bm25, k=args.k)
+    print(result)
+    return result
+
 
 if __name__ == "__main__":
     load_dotenv()

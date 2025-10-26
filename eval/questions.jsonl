@@ -1,0 +1,5 @@
+{"id":"q1", "question": "What is the area of India?. Cite.","expected_keywords": ["3.28 million square kilometers"], "class": "factual","document": "data/ncert-geography-class-IX/iess101.pdf","notes":""}
+{"id":"q2","question":"Waht are the types of veegation in India?","expected_keywords": ["Tropical Evergreen Forests", "Tropical Deciduous Forests", "Tropical Thorn Forests and Scrubs", "Montane Forests", "Mangrove Forests"],"class": "multi-answer","document": "data/ncert-geography-class-IX/iess105.pdf","notes": "all keywords needed"}
+{"id":"q3","question":"What is the Brahmaputra River known as in other countries?","expected_keywords": ["Tsang Po", "Jamuna"],"class": "multi-answer","document": "data/ncert-geography-class-IX/iess103.pdf","notes": "all keywords needed"}
+{"id":"q4","question":"Where are the Ghats located in India?","expected_keywords": ["western", "eastern", "deccan"],"class": "multi-answer","document": "data/ncert-geography-class-IX/iess102.pdf","notes": ""}
+

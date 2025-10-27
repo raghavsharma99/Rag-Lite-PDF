@@ -140,13 +140,14 @@ Evaluations generate two output files:
 #### Sample Output Files
 
 **`summary.csv`** - Evaluation metrics:
-```csv
-qid,source,has_citation,keyword_hits,keyword_coverage,has_correct_source,judge_grounding_1to5
-q1,data/ncert-geography-class-IX/iess101.pdf,1,1,1.0,0,5
-q2,data/ncert-geography-class-IX/iess105.pdf,1,5,1.0,1,5
-q3,data/ncert-geography-class-IX/iess103.pdf,1,0,0.0,1,1
-q4,data/ncert-geography-class-IX/iess102.pdf,1,2,0.667,1,5
-```
+
+| qid | source                                    | has_citation | keyword_hits | keyword_coverage | has_correct_source | judge_grounding_1to5 |
+| --- | ----------------------------------------- | ------------ | ------------ | ---------------- | ------------------ | -------------------- |
+| q1  | data/ncert-geography-class-IX/iess101.pdf | 1            | 1            | 1.0              | 0                  | 5                    |
+| q2  | data/ncert-geography-class-IX/iess105.pdf | 1            | 5            | 1.0              | 1                  | 5                    |
+| q3  | data/ncert-geography-class-IX/iess103.pdf | 1            | 0            | 0.0              | 1                  | 1                    |
+| q4  | data/ncert-geography-class-IX/iess102.pdf | 1            | 2            | 0.667            | 1                  | 5                    |
+
 
 **`summary_answers.jsonl`** - Raw Q&A pairs:
 ```json

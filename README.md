@@ -104,7 +104,7 @@ python main.py --group data/ncert-geography-class-IX --ask "What are the major p
 
 > Exactly one of `--pdf`, `--corpus`, or `--group` must be supplied.
 
-## 🧪 Evaluation Workflow
+## ⚖️ Evaluation Workflow
 
 The project includes a comprehensive evaluation system to measure RAG performance across multiple questions and documents.
 

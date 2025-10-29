@@ -35,10 +35,18 @@
 
 ## 🚀 Quickstart
 
+### Mac/Linux
 ```bash
 git clone https://github.com/raghavsharma99/Rag-Lite-PDF.git
 cd Rag-Lite-PDF
 python3 -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt
+```
+
+### Windows
+```sh
+python -m venv .venv
+.venv\Scripts\activate.bat
 pip install -r requirements.txt
 ```
 
